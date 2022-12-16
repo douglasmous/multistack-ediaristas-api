@@ -2,13 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin User */
 class DiaristaPublico extends JsonResource
 {
-
-
-
     /**
      * Transform the resource into an array.
      *
@@ -17,11 +16,13 @@ class DiaristaPublico extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $response = [
             'nome_completo' => $this->nome_completo,
             'reputacao' => $this->reputacao,
             'foto_usuario' => $this->foto_usuario,
-            'cidade' => 'São Paulo'
+            'cidade' => 'São Paulo',
         ];
+
+        return $response;
     }
 }
