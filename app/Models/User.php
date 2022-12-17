@@ -30,6 +30,7 @@ class User extends Authenticatable
         'password',
         'chave_pix',
         'reputacao',
+        'tipo_usuario',
     ];
 
     /**
