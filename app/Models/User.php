@@ -30,7 +30,6 @@ class User extends Authenticatable
         'password',
         'chave_pix',
         'reputacao',
-        'tipo_usuario',
     ];
 
     /**
@@ -40,8 +39,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'cpf',
-        'foto_documento',
         'remember_token',
     ];
 
