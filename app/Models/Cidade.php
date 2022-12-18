@@ -10,7 +10,7 @@ class Cidade extends Model
     use HasFactory;
 
     /**
-     * Define a relação com User(Diaristas)
+     * Define a relação com User(Diarista)
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
