@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Diarista;
 
-use App\Enums\TipoUsuario;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DiaristaPublicoCollection;
 use App\Models\User;
@@ -18,8 +17,8 @@ class ObtemDiaristasPorCEP extends Controller
      */
     public function __invoke(Request $request)
     {
-        $diarista = User::where('tipo_usuario', '=', TipoUsuario::DIARISTA->value)->get();
+        $diaristas = User::diarista()->get();
 
-        return new DiaristaPublicoCollection($diarista);
+        return new DiaristaPublicoCollection($diaristas);
     }
 }
