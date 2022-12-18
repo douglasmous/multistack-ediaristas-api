@@ -11,7 +11,6 @@ class Cidade extends Model
 
     /**
      * Define a relação com User(Diarista)
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function diaristas()
