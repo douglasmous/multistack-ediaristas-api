@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\TipoUsuario;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -87,5 +88,27 @@ class User extends Authenticatable
             ->whereHas('cidadesAtendidas', function ($cidadeQuery) use ($codigoCidadeIbge) {
                 $cidadeQuery->where('codigo_ibge', '=', $codigoCidadeIbge);
             });
+    }
+
+    /**
+     * Busca 6 diaristas pelo código da cidade do IBGE
+     *
+     * @param  int  $codigoCidadeIbge
+     * @return Collection
+     */
+    public static function diaristaDisponivelCidade(int $codigoCidadeIbge): Collection
+    {
+        return User::diaristasAtendemCidade($codigoCidadeIbge)->limit(6)->get();
+    }
+
+    /**
+     * Retorna o número de diaristas que atendem uma cidade de acordo com o código da cidade do IBGE
+     *
+     * @param  int  $codigoCidadeIbge
+     * @return int
+     */
+    public static function diaristaDisponivelCidadeTotal(int $codigoCidadeIbge): int
+    {
+        return User::diaristasAtendemCidade($codigoCidadeIbge)->count();
     }
 }
