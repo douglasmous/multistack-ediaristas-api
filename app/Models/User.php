@@ -52,7 +52,8 @@ class User extends Authenticatable
     ];
 
     /**
-     *  Define a relação com Cidade e lista as cidades atendidas por Diarista.
+     *  Define a relação com Cidade e lista as cidades atendidas.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function cidadesAtendidas()
