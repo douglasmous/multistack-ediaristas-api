@@ -67,10 +67,9 @@ class User extends Authenticatable
     /**
      * Filtra usuários do tipo diarista
      *
-     * @param  Builder  $query
      * @return Builder
      */
-    public function scopeDiarista(Builder $query): Builder
+    public function scopeDiarista($query): Builder
     {
         return $query->where('tipo_usuario', '=', TipoUsuario::DIARISTA->value);
     }
@@ -78,11 +77,10 @@ class User extends Authenticatable
     /**
      * Filtra usuários do tipo diarista que atendem a cidade informada.
      *
-     * @param  Builder  $query
      * @param  int  $codigoCidadeIbge
      * @return Builder
      */
-    public function scopeDiaristasAtendemCidade(Builder $query, int $codigoCidadeIbge): Builder
+    public function scopeDiaristasAtendemCidade($query, int $codigoCidadeIbge): Builder
     {
         return $query->diarista()
             ->whereHas('cidadesAtendidas', function ($cidadeQuery) use ($codigoCidadeIbge) {
