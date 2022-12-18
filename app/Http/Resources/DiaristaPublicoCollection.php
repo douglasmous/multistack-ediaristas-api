@@ -7,6 +7,17 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DiaristaPublicoCollection extends ResourceCollection
 {
+    final const QUANTIDADE_DIARISTAS_DESTAQUE = 6;
+
+    private int $quantidadeDiaristas;
+
+    public function __construct($resource, int $quantidadeDiaristas)
+    {
+        parent::__construct($resource);
+
+        $this->quantidadeDiaristas = $quantidadeDiaristas - self::QUANTIDADE_DIARISTAS_DESTAQUE;
+    }
+
     public static $wrap = 'diaristas';
 
     /**
@@ -19,6 +30,7 @@ class DiaristaPublicoCollection extends ResourceCollection
     {
         return [
             'diaristas' => DiaristaPublico::collection($this->collection),
+            'quantidade_diaristas' => $this->quantidadeDiaristas > 0 ? $this->quantidadeDiaristas : 0,
         ];
     }
 }
