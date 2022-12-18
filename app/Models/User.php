@@ -58,7 +58,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function cidadesAtendidas()
+    public function cidadesAtendidas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cidade::class, 'cidade_diarista');
     }
@@ -69,8 +69,23 @@ class User extends Authenticatable
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeDiarista(Builder $query)
+    public function scopeDiarista(Builder $query): Builder
     {
         return $query->where('tipo_usuario', '=', TipoUsuario::DIARISTA->value);
+    }
+
+    /**
+     * Filtra usuários do tipo diarista que atendem a cidade informada.
+     *
+     * @param  Builder  $query
+     * @param  int  $codigoCidadeIbge
+     * @return Builder
+     */
+    public function scopeDiaristasAtendemCidade(Builder $query, int $codigoCidadeIbge): Builder
+    {
+        return $query->diarista()
+            ->whereHas('cidadesAtendidas', function ($cidadeQuery) use ($codigoCidadeIbge) {
+                $cidadeQuery->where('codigo_ibge', '=', $codigoCidadeIbge);
+            });
     }
 }
