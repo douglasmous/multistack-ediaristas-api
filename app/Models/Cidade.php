@@ -11,9 +11,9 @@ class Cidade extends Model
 
     /**
      * Define a relação com User(Diaristas)
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-
     public function diaristas()
     {
         return $this->belongsToMany(User::class, 'cidade_diarista');
