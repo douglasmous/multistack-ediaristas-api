@@ -56,7 +56,7 @@
         ],
         "insights": "@php artisan insights",
         "check-format": "@format --test",
-        "format": "./vendor/bin/pint",
+        "format": "./vendor/bin/pint --preset laravel",
         "analyse": "./vendor/bin/phpstan analyse"
     },
     "extra": {
