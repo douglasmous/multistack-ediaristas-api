@@ -22,6 +22,5 @@ class DiaristaPublico extends JsonResource
             'foto_usuario' => $this->foto_usuario,
             'cidade' => 'São Paulo',
         ];
-
     }
 }
