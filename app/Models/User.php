@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\TipoUsuario;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -59,5 +61,16 @@ class User extends Authenticatable
     public function cidadesAtendidas()
     {
         return $this->belongsToMany(Cidade::class, 'cidade_diarista');
+    }
+
+    /**
+     * Filtra usuários do tipo diarista
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeDiarista(Builder $query)
+    {
+        return $query->where('tipo_usuario', '=', TipoUsuario::DIARISTA->value);
     }
 }
