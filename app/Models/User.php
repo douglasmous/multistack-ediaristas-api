@@ -50,4 +50,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     *  Define a relação com Cidade e lista as cidades atendidas por Diarista.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function cidadesAtendidas()
+    {
+        return $this->belongsToMany(Cidade::class, 'cidade_diarista');
+    }
 }
