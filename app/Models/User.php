@@ -52,7 +52,7 @@ class User extends Authenticatable
     ];
 
     /**
-     *  Define a relação com Cidade e lista as cidades atendidas.
+     *  Define a relação com cidades e lista as cidades atendidas.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
