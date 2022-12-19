@@ -77,10 +77,10 @@ class User extends Authenticatable
     /**
      * Filtra usuários do tipo diarista que atendem a cidade informada.
      *
-     * @param  int  $codigoCidadeIbge
+     * @param  string  $codigoCidadeIbge
      * @return Builder
      */
-    public function scopeDiaristasAtendemCidade($query, int $codigoCidadeIbge): Builder
+    public function scopeDiaristasAtendemCidade($query, string $codigoCidadeIbge): Builder
     {
         return $query->diarista()
             ->whereHas('cidadesAtendidas', function ($cidadeQuery) use ($codigoCidadeIbge) {
@@ -91,10 +91,10 @@ class User extends Authenticatable
     /**
      * Busca 6 diaristas pelo código da cidade do IBGE
      *
-     * @param  int  $codigoCidadeIbge
+     * @param  string  $codigoCidadeIbge
      * @return Collection
      */
-    public static function diaristaDisponivelCidade(int $codigoCidadeIbge): Collection
+    public static function diaristaDisponivelCidade(string $codigoCidadeIbge): Collection
     {
         return User::diaristasAtendemCidade($codigoCidadeIbge)->limit(6)->get();
     }
@@ -102,10 +102,10 @@ class User extends Authenticatable
     /**
      * Retorna o número de diaristas que atendem uma cidade de acordo com o código da cidade do IBGE
      *
-     * @param  int  $codigoCidadeIbge
+     * @param  string  $codigoCidadeIbge
      * @return int
      */
-    public static function diaristaDisponivelCidadeTotal(int $codigoCidadeIbge): int
+    public static function diaristaDisponivelCidadeTotal(string $codigoCidadeIbge): int
     {
         return User::diaristasAtendemCidade($codigoCidadeIbge)->count();
     }
