@@ -6,8 +6,8 @@ use App\Enums\TipoUsuario;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -57,9 +57,9 @@ class User extends Authenticatable
     /**
      *  Define a relação com cidades e lista as cidades atendidas.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function cidadesAtendidas(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function cidadesAtendidas(): BelongsToMany
     {
         return $this->belongsToMany(Cidade::class, 'cidade_diarista');
     }

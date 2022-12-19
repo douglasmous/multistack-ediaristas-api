@@ -2,19 +2,18 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin User */
 class DiaristaPublico extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Define os dados de uma diarista que podem ser retornados publicamente.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'nome_completo' => $this->nome_completo,

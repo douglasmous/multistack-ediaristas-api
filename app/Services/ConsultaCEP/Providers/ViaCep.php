@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Services\ConsultaCEP;
+namespace App\Services\ConsultaCEP\Providers;
 
+use App\Services\ConsultaCEP\ConsultaCEPInterface;
+use App\Services\ConsultaCEP\EnderecoResponse;
 use Illuminate\Support\Facades\Http;
 
-class ViaCep
+class ViaCep implements ConsultaCEPInterface
 {
     /**
      * Recebe o CEP, busca o endereço na api do ViaCEP e retorna o código IBGE do município.
@@ -12,7 +14,7 @@ class ViaCep
      * @param  string  $cep
      * @return false|EnderecoResponse
      */
-    public function buscar(string $cep): false|EnderecoResponse
+    public function buscar(string $cep = ''): false|EnderecoResponse
     {
         $resposta = Http::get("https://viacep.com.br/ws/$cep/json");
 

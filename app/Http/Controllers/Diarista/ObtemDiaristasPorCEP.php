@@ -5,20 +5,22 @@ namespace App\Http\Controllers\Diarista;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DiaristaPublicoCollection;
 use App\Models\User;
-use App\Services\ConsultaCEP\ViaCep;
+use App\Services\ConsultaCEP\ConsultaCEPInterface;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ObtemDiaristasPorCEP extends Controller
 {
     /**
-     * Handle the incoming request.
+     *  Busca diaristas pelo CEP.
      *
      * @param  Request  $request
-     * @return mixed
+     * @param  ConsultaCEPInterface  $servicoCEP
+     * @return DiaristaPublicoCollection|Response
      */
-    public function __invoke(Request $request, ViaCep $servicoCEP)
+    public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP): DiaristaPublicoCollection|Response
     {
-        $respostaApi = $servicoCEP->buscar($request->cep);
+        $respostaApi = $servicoCEP->buscar($request->cep ?? '');
 
         if ($respostaApi === false) {
             return response()->json(['erro' => 'CEP inválido'], 400);
