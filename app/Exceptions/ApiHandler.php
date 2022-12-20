@@ -30,7 +30,7 @@ trait ApiHandler
      */
     private function validationException(ValidationException $e): JsonResponse
     {
-        return error_response(statusCode: 400, errorCode: 'validation_exception', message: 'Os dados enviados não são válidos', errorDescription: $e->errors());
+        return api_response(statusCode: 400, code: 'validation_exception', message: 'Os dados enviados não são válidos', description: $e->errors());
     }
 
     /**
@@ -40,6 +40,6 @@ trait ApiHandler
      */
     private function genericException(): JsonResponse
     {
-        return error_response(statusCode: 500, errorCode: 'internal_error', message: 'Erro interno do servidor');
+        return api_response(statusCode: 500, code: 'internal_error', message: 'Erro interno do servidor');
     }
 }

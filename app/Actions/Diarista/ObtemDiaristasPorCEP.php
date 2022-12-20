@@ -12,6 +12,12 @@ class ObtemDiaristasPorCEP
     {
     }
 
+    /**
+     * Retorna os diaristas disponíveis na cidade através do CEP.
+     *
+     * @param  string  $cep
+     * @return array
+     */
     public function exec(string $cep): array
     {
         $respostaApi = $this->servicoCEP->buscar($cep);

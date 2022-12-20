@@ -2,27 +2,27 @@
 
 use Illuminate\Http\JsonResponse;
 
-if (! function_exists('error_response')) {
+if (! function_exists('api_response')) {
     /**
-     * Retorna uma resposta padronizada quando ocorre algum erros
+     * Padroniza as respostas da API.
      *
      * @param  string  $message
-     * @param  string  $errorCode
+     * @param  string  $code
      * @param  int  $statusCode
-     * @param  array  $errorDescription
+     * @param  array  $description
      * @return JsonResponse
      */
-    function error_response(
+    function api_response(
         string $message,
-        string $errorCode,
+        string $code,
         int $statusCode,
-        array $errorDescription = []
+        array $description = []
     ): JsonResponse {
         return response()->json([
             'message' => $message,
-            'error_code' => $errorCode,
+            'code' => $code,
             'status_code' => $statusCode,
-            'error_description' => [...$errorDescription],
+            'description' => [...$description],
         ], $statusCode);
     }
 }
