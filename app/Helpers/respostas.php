@@ -13,11 +13,11 @@ if (! function_exists('error_response')) {
      * @return JsonResponse
      */
     function error_response(
-    string $message,
-    string $errorCode,
-    int $statusCode,
-    array $errorDescription = []
-  ): JsonResponse {
+        string $message,
+        string $errorCode,
+        int $statusCode,
+        array $errorDescription = []
+    ): JsonResponse {
         return response()->json([
             'message' => $message,
             'error_code' => $errorCode,

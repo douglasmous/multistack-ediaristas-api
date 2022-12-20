@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DiaristaPublicoCollection extends ResourceCollection
 {
+    public static $wrap = 'diaristas';
+
     /**
      * Armazena a quantidade de diaristas já enviadas na resposta.
      *
@@ -26,8 +28,6 @@ class DiaristaPublicoCollection extends ResourceCollection
 
         $this->quantidadeDiaristas = $quantidadeDiaristas - self::QUANTIDADE_DIARISTAS_DESTAQUE;
     }
-
-    public static $wrap = 'diaristas';
 
     /**
      * Transform the resource collection into an array.

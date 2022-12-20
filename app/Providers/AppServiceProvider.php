@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(ConsultaCEPInterface::class, function ($app) {
-            return new ViaCep;
+            return new ViaCep();
         });
     }
 
