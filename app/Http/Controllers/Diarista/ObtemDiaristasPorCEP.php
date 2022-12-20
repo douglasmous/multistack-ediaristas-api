@@ -2,38 +2,31 @@
 
 namespace App\Http\Controllers\Diarista;
 
+use App\Actions\Diarista\ObtemDiaristasPorCEP as ObtemDiaristasPorCepAction;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DiaristaPublicoCollection;
-use App\Models\User;
-use App\Services\ConsultaCEP\ConsultaCEPInterface;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObtemDiaristasPorCEP extends Controller
 {
     /**
-     *  Busca diaristas pelo CEP.
+     * Busca diraristas que atendem determinado CEP.
      *
      * @param  Request  $request
-     * @param  ConsultaCEPInterface  $servicoCEP
+     * @param  ObtemDiaristasPorCepAction  $action
      * @return DiaristaPublicoCollection|Response
      */
-    public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP): DiaristaPublicoCollection|Response
+    public function __invoke(Request $request, ObtemDiaristasPorCEPAction $action): DiaristaPublicoCollection|Response
     {
         $request->validate([
             'cep' => 'required|numeric|digits:8',
         ]);
-
-        $respostaApi = $servicoCEP->buscar($request->cep);
-
-        if ($respostaApi === false) {
-            throw ValidationException::withMessages(['cep' => 'CEP não encontrado']);
-        }
+        [$diaristasPrincipais, $quantidadeDiaristasRestantes] = $action->exec($request->cep);
 
         return new DiaristaPublicoCollection(
-            User::diaristaDisponivelCidade($respostaApi->ibge),
-            User::diaristaDisponivelCidadeTotal($respostaApi->ibge),
+            $diaristasPrincipais,
+            $quantidadeDiaristasRestantes
         );
     }
 }
