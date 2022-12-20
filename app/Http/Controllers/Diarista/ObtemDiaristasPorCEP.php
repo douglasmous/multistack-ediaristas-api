@@ -7,6 +7,7 @@ use App\Http\Resources\DiaristaPublicoCollection;
 use App\Models\User;
 use App\Services\ConsultaCEP\ConsultaCEPInterface;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObtemDiaristasPorCEP extends Controller
@@ -20,10 +21,14 @@ class ObtemDiaristasPorCEP extends Controller
      */
     public function __invoke(Request $request, ConsultaCEPInterface $servicoCEP): DiaristaPublicoCollection|Response
     {
-        $respostaApi = $servicoCEP->buscar($request->cep ?? '');
+        $request->validate([
+            'cep' => 'required|numeric|digits:8',
+        ]);
+
+        $respostaApi = $servicoCEP->buscar($request->cep);
 
         if ($respostaApi === false) {
-            return response()->json(['erro' => 'CEP inválido'], 400);
+            throw ValidationException::withMessages(['cep' => 'CEP não encontrado']);
         }
 
         return new DiaristaPublicoCollection(

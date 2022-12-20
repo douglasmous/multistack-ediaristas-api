@@ -7,6 +7,8 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    use ApiHandler;
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -46,5 +48,21 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Faz o tratamento de exceções no Laravel.
+     *
+     * @param  mixed  $request
+     * @param  Throwable  $e
+     * @return mixed
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($request->is('api/*')) {
+            return $this->getJsonException($e);
+        }
+
+        return parent::render($request, $e);
     }
 }
