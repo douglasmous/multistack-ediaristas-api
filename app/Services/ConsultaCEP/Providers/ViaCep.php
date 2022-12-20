@@ -28,6 +28,6 @@ class ViaCep implements ConsultaCEPInterface
             return false;
         }
 
-        return new EnderecoResponse(ibge: $dados['ibge']);
+        return new EnderecoResponse(cep: $dados['cep'], logradouro: $dados['logradouro'], bairro: $dados['bairro'], localidade: $dados['localidade'], uf: $dados['uf'], ibge: $dados['ibge']);
     }
 }

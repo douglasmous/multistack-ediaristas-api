@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Diarista;
 
 use App\Actions\Diarista\ObtemDiaristasPorCEP;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CEPRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class VerificaDiaristasDisponiveis extends Controller
 {
@@ -13,12 +13,8 @@ class VerificaDiaristasDisponiveis extends Controller
     {
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(CEPRequest $request): JsonResponse
     {
-        $request->validate([
-            'cep' => 'required|numeric|digits:8',
-        ]);
-
         [$diaristasCollection] = $this->getDiaristasByCEP->exec($request->cep);
 
         return api_response(
